@@ -19,6 +19,7 @@ struct Point {
 };
 int w = 1520, h = 855;
 Image imgBG, imgPlay, imgExit, imgGuide, imgLogo;
+Rect logo = {w/2 - 300, w/2 + 300, h/2 - 50, 800};
 Rect Rct_BG = { 0, w, 0, h };
 Rect Play_Button = { w / 2 - 50, w / 2 + 50, h / 2, 250 };
 Rect Exit_Button = { w / 2 - 200, w / 2 - 100, h / 2 - 150, 100 };
@@ -44,6 +45,8 @@ void display2()
 	Draw_Rect(&Exit_Button);
 	Map_Texture(&imgGuide);
 	Draw_Rect(&Guide_Button);
+	Map_Texture(&imgLogo);
+	Draw_Rect(&logo);
 
 	glutSwapBuffers();
 }
@@ -59,6 +62,8 @@ void menu::loadImg()
 	Zoom_Image(&imgExit, 1);
 	Load_Texture_Swap(&imgGuide, "Image/guideBt.png");
 	Zoom_Image(&imgGuide, 1);
+	Load_Texture_Swap(&imgLogo, "Image/Logo.png");
+	Zoom_Image(&imgLogo, 1);
 
 }
 
@@ -83,31 +88,3 @@ void menu::init()
 
 	menu::loadImg();
 }
-
-
-
-//void myMouse(int button, int state, int x, int y) {
-//	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
-//	{
-//		if (x <  810 && x > 709 && y < 580 && y > 416)
-//		{
-//			cout << "            Play          " << endl;
-//			win2 = glutCreateWindow("Hungry Fish");
-//			glutSetCursor(GLUT_CURSOR_NONE);
-//			init();
-//			glutDisplayFunc(display);
-//			glutTimerFunc(0, Timer, 0);
-//			glutPassiveMotionFunc(mouseHover);
-//
-//			glutDestroyWindow(win1);
-//		}
-//		if (x < 660 && x > 560 && y < 728 && y > 560)
-//		{
-//			/*exit(1);*/
-//		}
-//		if (x < 960 && x > 860 && y < 728 && y > 560)
-//		{
-//			cout << "            guide          " << endl;
-//		}
-//	}
-//}

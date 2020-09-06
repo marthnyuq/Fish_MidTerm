@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "Guide.h"
 
 #define WIDTH 1520
 #define HEIGHT 855
@@ -17,7 +18,7 @@ int F3_count = 0;
 int LEVEL = 1, Score = 0, live = 3;
 bool isLiving = true;
 
-int win1, win2;
+int win1, win2, winGuide;
 int x = 100;
 int y = HEIGHT - 100;
 
@@ -784,6 +785,31 @@ void Timer(int value)
 
 }
 
+void myMouse2(int button, int state, int x, int y)
+{
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+	{
+		cout << "Clicked at [" << x << "," << y << "]\n";
+
+		if (x < 659 && x > 559 && y < 742 && y > 573)
+		{
+			exit(1);
+		}
+		if (x < 1057 && x > 958 && y < 742 && y > 573)
+		{
+			cout << "            Play          " << endl;
+			win2 = glutCreateWindow("Hungry Fish");
+			glutSetCursor(GLUT_CURSOR_NONE);
+			init();
+			glutDisplayFunc(display);
+			glutTimerFunc(0, Timer, 0);
+			glutPassiveMotionFunc(mouseHover);
+
+			glutDestroyWindow(winGuide);
+		}
+	}
+}
+
 void myMouse(int button, int state, int x, int y) {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
@@ -802,11 +828,17 @@ void myMouse(int button, int state, int x, int y) {
 		}
 		if (x < 660 && x > 560 && y < 728 && y > 560)
 		{
-			/*exit(1);*/
+			exit(1);
 		}
 		if (x < 960 && x > 860 && y < 728 && y > 560)
 		{
-			cout << "            guide          " << endl;
+			cout << "            Guide          " << endl;
+			winGuide = glutCreateWindow("Guide");
+			Guide g;
+			g.init();
+			glutDisplayFunc(display3);
+			glutMouseFunc(myMouse2);
+			glutDestroyWindow(win1);
 		}
 	}
 }
