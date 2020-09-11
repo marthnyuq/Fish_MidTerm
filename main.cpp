@@ -33,8 +33,7 @@ public:
 		float x, y;
 		float dir = -1;
 	}f;
-	static Image Img_save[2][2]; //[dir(l/r:0/1)][eat][level]
-	static float Map_Offset[2];
+	static Image Img_save[2][2]; //[dir(l/r:0/1)][eat]
 
 	Rect rect;
 	Image* Img;
@@ -401,6 +400,85 @@ Fish_Lv3 f3;
 vector<Fish_Lv3> F_level3;
 #pragma endregion
 
+#pragma region Urchin
+class Urchin {
+public:
+	struct Pos {
+		float x, y;
+	}p;
+	static Image Img_save[2]; //[dir(l/r:0/1)][eat]
+
+	Rect rect;
+	Image* Img;
+
+
+	void Init(int x, int y)
+	{
+		p.x = x;
+		p.y = y;
+		//isEating = false;
+		Update_Image();
+		Update_Rect(); //105, 107
+		//112, 113.5
+	}
+
+	void Update_Image() { Img = &Img_save[1]; }
+	void Update_Rect() {
+		rect.Left = p.x - Img->w / 2;
+		rect.Right = rect.Left + Img->w;
+		rect.Bottom = p.y;
+		rect.Top = rect.Bottom + Img->h;
+	}
+
+	void Draw() {
+		Map_Texture(Img);
+		Draw_Rect(&rect);
+	}
+
+	bool is_Caught(float _x, float _y, int scale, int w, int h) //player position
+	{
+		if (p.x > _x - (w * scale) / 2 && p.x < _x + (w * scale) / 2 && p.y > _y - (h * scale) / 2 && p.y < _y + (h * scale) / 2)
+			return true;
+		return false;
+	}
+	static bool Check_Boundary_Bottom(float y) { return y < 0 - 50; }
+	static bool Check_Boundary_Top(float y) { return y > HEIGHT + 50; }
+	int offsetY = 1;
+	void setPos(Pos &f)
+	{
+		if (Check_Boundary_Bottom(f.y))
+		{
+			offsetY = 1;
+		}
+		else if (Check_Boundary_Top(f.y))
+		{
+			offsetY = -1;
+		}
+		f.y += offsetY;
+	}
+	void update()
+	{
+		setPos(p);
+		Update_Image();
+		Update_Rect();
+	}
+	static void Load_Image(int level) {
+		Image Img;
+		Load_Texture(&Img, "Image/urchin.png");
+		Crop_Image(&Img, &Img_save[0], 0, 0, 100, 100);
+		Crop_Image(&Img, &Img_save[1], 100, 0, 100, 100);
+
+		Zoom_Image(&Img_save[0], 1);
+		Zoom_Image(&Img_save[1], 1);
+
+		Delete_Image(&Img);
+	}
+};
+Image Urchin::Img_save[2];
+Urchin u;
+vector<Urchin> Urchins;
+#pragma endregion
+
 #pragma region Spawn_Fish
 class Spawn_Fish {
 public:
@@ -427,6 +505,13 @@ public:
 		f3.init(WIDTH, rand() % HEIGHT);
 		F_level3.push_back(Fish_Lv3(f3));
 	}
+	void update_urchin()
+	{
+		u.Init(rand() % WIDTH, HEIGHT);
+		Urchins.push_back(Urchin(u));
+		u.Init(rand() % WIDTH, 0);
+		Urchins.push_back(Urchin(u));
+	}
 };
 Spawn_Fish s;
 #pragma endregion
@@ -438,13 +523,12 @@ public:
 		float x, y;
 		float dir = -1;
 	}f;
-	static Image Img_save[2][2]; //[dir(l/r:0/1)][eat]
-	static float Map_Offset[2];
+	static Image Img_Save[2][2]; //[dir(l/r:0/1)][eat]
 
 	Rect rect;
 	Image* Img;
 
-	float level = 1;
+	int level = 1;
 	int Drt = 0.0, Anim;
 	//int Score;
 
@@ -462,13 +546,12 @@ public:
 
 	}
 
-	void Update_Image() { Img = &Img_save[Drt][Anim]; }
+	void Update_Image() { Img = &Img_Save[Drt][Anim]; }
 	void Update_Rect() {
 		rect.Left = f.x - (Img->w / 2);
 		rect.Right = rect.Left + Img->w;
 		rect.Bottom = f.y;
 		rect.Top = rect.Bottom + Img->h;
-		//cout << "RECT: " << rect.Left << ", " << rect.Right << ", " << rect.Bottom << ", " << rect.Top << endl;
 	}
 
 	void Draw() {
@@ -485,7 +568,22 @@ public:
 
 	void move()
 	{
-#pragma region Fish_LV1_Caught
+		#pragma region Urchin
+		vector<Urchin>::iterator it_u = Urchins.begin();
+		while (it_u != Urchins.end()) {
+			if (it_u->is_Caught(f.x, f.y, 1, Img->w, Img->h)) {
+				//Load_Image1(1);
+				//system("pause");
+				exit(1);
+			}
+			else
+			{
+				it_u++;
+			}
+		}
+		#pragma endregion
+
+		#pragma region Fish_LV1_Caught
 		vector<Fish_Lv1>::iterator it = F_level1.begin();
 		while (it != F_level1.end()) {
 			if (it->is_Caught(f.x, f.y, 1, Img->w, Img->h)) {
@@ -500,9 +598,9 @@ public:
 				it++;
 			}
 		}
-#pragma endregion
+		#pragma endregion
 
-#pragma region Fish_LV2_BeingCaught_Caught
+		#pragma region Fish_LV2_BeingCaught_Caught
 		vector<Fish_Lv2>::iterator it2 = F_level2.begin();
 		while (it2 != F_level2.end()) {
 			if (LEVEL < 2) //being caught
@@ -510,8 +608,6 @@ public:
 				if (it2->is_Caught(f.x, f.y, 1, it2->img->w, it2->img->h))
 				{
 					Init(LEVEL, WIDTH / 2, HEIGHT / 2);
-					//live -= 1;
-					//cout << live << endl;
 					Score = 0;
 				}
 				else
@@ -534,9 +630,9 @@ public:
 				}
 			}
 		}
-#pragma endregion
+		#pragma endregion
 
-#pragma region Fish_LV3_BeingCaught_Caught
+		#pragma region Fish_LV3_BeingCaught_Caught
 		vector<Fish_Lv3>::iterator it3 = F_level3.begin();
 		while (it3 != F_level3.end()) {
 			if (LEVEL < 3)
@@ -572,9 +668,9 @@ public:
 				}
 			}
 		}
-#pragma endregion
+		#pragma endregion
 
-#pragma region Update
+		#pragma region Update
 		if (F_level1.size() == 0)
 		{
 			s.update_lv1();
@@ -587,9 +683,9 @@ public:
 		{
 			s.update_lv3();
 		}
-#pragma endregion
+		#pragma endregion
 
-#pragma region Up_Level
+		#pragma region Up_Level
 		if (Score == 200)
 		{
 			LEVEL = 2;
@@ -604,7 +700,7 @@ public:
 		{
 			cout << "You Win\n";
 		}
-#pragma endregion
+		#pragma endregion
 
 		Update_Image();
 		Update_Rect();
@@ -615,24 +711,36 @@ public:
 		int w, h;
 		Load_Texture(&Img, a[level - 1].c_str());
 		w = Img.w / 2; h = Img.h / 2;
-		Crop_Image(&Img, &Img_save[0][0], 0, 0, w, h);
-		Crop_Image(&Img, &Img_save[0][1], 0, h, w, h);
-		Crop_Image(&Img, &Img_save[1][0], w, 0, w, h);
-		Crop_Image(&Img, &Img_save[1][1], w, h, w, h);
+		Crop_Image(&Img, &Img_Save[0][0], 0, 0, w, h);
+		Crop_Image(&Img, &Img_Save[0][1], 0, h, w, h);
+		Crop_Image(&Img, &Img_Save[1][0], w, 0, w, h);
+		Crop_Image(&Img, &Img_Save[1][1], w, h, w, h);
 
-		Zoom_Image(&Img_save[0][0], 1);
-		Zoom_Image(&Img_save[0][1], 1);
-		Zoom_Image(&Img_save[1][0], 1);
-		Zoom_Image(&Img_save[1][1], 1);
+		Zoom_Image(&Img_Save[0][0], 1);
+		Zoom_Image(&Img_Save[0][1], 1);
+		Zoom_Image(&Img_Save[1][0], 1);
+		Zoom_Image(&Img_Save[1][1], 1);
+
+		Delete_Image(&Img);
+	}
+	static void Load_Image1(int level) {
+		//cout << "Float level: " << level << endl;
+		Image Img;
+		int w, h;
+		Load_Texture(&Img, "Image/boom.png");
+		w = Img.w; h = Img.h;
+		Crop_Image(&Img, &Img_Save[0][0], 0, 0, w, h);
+		Crop_Image(&Img, &Img_Save[0][1], 0, h, w, h);
 
 		Delete_Image(&Img);
 	}
 };
-Image Fish::Img_save[2][2];
+Image Fish::Img_Save[2][2];
 //vector<Fish>::iterator Player;
 Fish Player;
 vector<Fish> player;
 #pragma endregion
+
 
 string convert(int Score)
 {
@@ -665,13 +773,7 @@ void mouseHover(int x, int y)
 	Player.f.x = x;// +Player.Img->w;
 	Player.f.y = y;// +Player.Img->h;
 
-	if (live == 0)
-		exit(1);
 	Player.move();
-
-	/*cout << Player.f.x << endl;
-	cout << Player.f.y << endl;*/
-
 }
 
 void display()
@@ -685,7 +787,6 @@ void display()
 	output(x, y, convert(Score).c_str());
 	//player
 	Player.Draw();
-	//Player->Draw();
 	//F1
 	int size = F_level1.size();
 	for (int i = 0; i < size; i++)
@@ -704,32 +805,35 @@ void display()
 	{
 		F_level3[i].Draw();
 	}
+	size = Urchins.size();
+	for (int i = 0; i < size; i++)
+	{
+		Urchins[i].Draw();
+	}
 	glutSwapBuffers();
 
 }
 
 void init_Game()
 {
-	cout << "Loading\n";
 	Load_Texture_Swap(&Img_Background, "Image/ocean3.png");
-	cout << "\nloaded";
 	Zoom_Image(&Img_Background, SCALE);
 
 	output(x, y, convert(Score).c_str());
 
 	//fish
 	Fish::Load_Image(LEVEL);
+	Urchin::Load_Image(1);
 	Fish_Lv1::Load_Image(1);
 	Fish_Lv2::Load_Image(1);
 	Fish_Lv3::Load_Image(1);
-	//Player.Init(LEVEL, WIDTH/2, HEIGHT/2);
-	//Player->Init(LEVEL, WIDTH / 2, HEIGHT / 2);
+
 	Player.Init(1, WIDTH / 2, HEIGHT / 2);
-	//player.push_back(Fish(Player));
 	//init
 	s.update_lv1();
 	s.update_lv2();
 	s.update_lv3();
+	s.update_urchin();
 
 }
 
@@ -753,14 +857,9 @@ void init()
 	init_Game();
 }
 
-
-int tmp = Score;
 void Timer(int value)
 {
-	/*demo.f.x += rand() % 2 - 1;
-	demo.f.y += rand() % 2 - 1;
-	cout << demo.f.x << " " << demo.f.y << endl;
-	demo.move();*/
+	
 	//score
 
 	output(x, y, convert(Score).c_str());
@@ -778,6 +877,11 @@ void Timer(int value)
 	for (int i = 0; i < size; i++)
 	{
 		F_level3[i].update();
+	}
+	size = Urchins.size();
+	for (int i = 0; i < size; i++)
+	{
+		Urchins[i].update();
 	}
 	//demo.update();
 	glutPostRedisplay();

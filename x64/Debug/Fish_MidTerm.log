@@ -1,21 +1,35 @@
 ﻿  main.cpp
 C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Linking\LIBABRY\lodepng.c(3268,70): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
 C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Linking\LIBABRY\lodepng.c(4201,43): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(22,20): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(22,26): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(23,28): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(23,40): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(23,48): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(22,18): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(22,29): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(22,40): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(23,20): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(23,26): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
 C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(24,28): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(24,41): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(24,54): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(25,29): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(25,42): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(25,55): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\main.cpp(689,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\main.cpp(695,24): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\main.cpp(701,24): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\main.cpp(766,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\main.cpp(771,24): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\main.cpp(776,24): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(24,40): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(24,48): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(25,28): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(25,41): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(25,54): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(26,29): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(26,42): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Menu.h(26,55): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Guide.h(5,22): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Guide.h(5,35): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Guide.h(5,48): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Guide.h(6,21): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Guide.h(6,34): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Guide.h(6,47): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Guide.h(7,21): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Guide.h(7,34): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\Guide.h(7,47): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\main.cpp(791,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\main.cpp(797,24): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\main.cpp(803,24): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\main.cpp(808,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\main.cpp(866,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\main.cpp(871,24): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\main.cpp(876,24): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\main.cpp(881,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
   Fish_MidTerm.vcxproj -> C:\Users\Administrator\Desktop\LTDH\Fish_MidTerm\x64\Debug\Fish_MidTerm.exe
